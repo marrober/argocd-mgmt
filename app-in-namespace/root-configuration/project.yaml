@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: app-in-namespace-root
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  namespace: openshift-gitops
+spec:
+  sourceRepos:
+  - https://github.com/marrober/argocd-mgmt.git
+
+  destinations:
+  - server: https://kubernetes.default.svc
+    namespace: '*'
+
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: 'rbac.authorization.k8s.io'
+    kind: ClusterRole
+  - group: 'rbac.authorization.k8s.io'
+    kind: ClusterRoleBinding
+
+  namespaceResourceBlacklist:
+  namespaceResourceWhitelist:
+  orphanedResources:
+    warn: false
+  roles:
+

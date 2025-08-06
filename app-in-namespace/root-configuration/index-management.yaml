@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: index-management
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  destination:
+    namespace: openshift-gitops
+    server: https://kubernetes.default.svc
+  source:
+    path: argocd-mgmt/app-in-namespace/index
+    repoURL: https://github.com/marrober/argocd-mgmt.git
+    targetRevision: main
+  project: app-in-namespace-root
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:  
+    - Validate=true 
+    - CreateNamespace=true 
+    - PrunePropagationPolicy=foreground 
+    - PruneLast=true 
+    retry:
+      limit: 1 
+      backoff:
+        duration: 5s 
+        factor: 2 
+        maxDuration: 20s
