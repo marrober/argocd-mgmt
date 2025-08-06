@@ -8,7 +8,7 @@ spec:
     namespace: openshift-gitops
     server: https://kubernetes.default.svc
   source:
-    path: argocd-mgmt/app-in-namespace/pacman-01
+    path: app-in-namespace/pacman-01
     repoURL: https://github.com/marrober/argocd-mgmt.git
     targetRevision: main
   project: app-in-namespace-root

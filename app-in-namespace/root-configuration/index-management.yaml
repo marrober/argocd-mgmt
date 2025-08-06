@@ -10,7 +10,7 @@ spec:
     namespace: openshift-gitops
     server: https://kubernetes.default.svc
   source:
-    path: argocd-mgmt/app-in-namespace/index
+    path: app-in-namespace/index
     repoURL: https://github.com/marrober/argocd-mgmt.git
     targetRevision: main
   project: app-in-namespace-root
