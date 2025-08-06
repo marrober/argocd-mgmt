@@ -19,8 +19,6 @@ spec:
     groups: 
     - pacman-01
     policies:
-    - p, proj:pacman-01:developer, applications, get, pacman-01/pacman-01-dev-01, allow
-    - p, proj:pacman-01:developer, applications, get, pacman-01/pacman-01-dev-02, allow
-    - p, proj:pacman-01:developer, applications, sync, pacman-01/pacman-01-dev-01, allow
-    - p, proj:pacman-01:developer, applications, sync, pacman-01/pacman-01-dev-02, allow
+    - p, proj:pacman-01:developer, applications, get, pacman-01/*, allow
+    - p, proj:pacman-01:developer, applications, sync, pacman-01/*, allow  
   

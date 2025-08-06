@@ -14,3 +14,10 @@ spec:
   - '*'
   sourceNamespaces: 
   - pacman-02-dev-*
+  roles:
+  - name: developer
+    groups: 
+    - pacman-02
+    policies:
+    - p, proj:pacman-02:developer, applications, get, pacman-02/*, allow
+    - p, proj:pacman-02:developer, applications, sync, pacman-02/*, allow  

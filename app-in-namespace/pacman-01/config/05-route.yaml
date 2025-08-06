@@ -1,16 +1,16 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: pacman-01-argocd-server
+  name: pacman-01-server
   namespace: pacman-01-argocd
   labels:
     app.kubernetes.io/managed-by: pacman-01-argocd
-    app.kubernetes.io/name: pacman-01-argocd-server
+    app.kubernetes.io/name: pacman-01-server
     app.kubernetes.io/part-of: argocd
 spec:
   to:
     kind: Service
-    name: pacman-01-argocd-server
+    name: pacman-01-server
     weight: 100
   port:
     targetPort: https
