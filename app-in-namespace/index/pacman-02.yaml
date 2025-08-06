@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pacman-01
+  name: pacman-02
   namespace: openshift-gitops
 spec:
   destination:
     namespace: openshift-gitops
     server: https://kubernetes.default.svc
   source:
-    path: app-in-namespace/pacman-01
+    path: app-in-namespace/pacman-02
     repoURL: https://github.com/marrober/argocd-mgmt.git
     targetRevision: main
   project: app-in-namespace-root
