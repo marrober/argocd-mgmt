@@ -1,0 +1,50 @@
+kind: Group
+apiVersion: user.openshift.io/v1
+metadata:
+  name: pacman-01
+users:
+  - mark
+  - john
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pacman-01-edit
+  namespace: pacman-01-dev-01
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: pacman-01
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pacman-01-edit
+  namespace: pacman-01-dev-02
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: pacman-01
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pacman-01-edit
+  namespace: pacman-01-dev-03
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: pacman-01
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+
