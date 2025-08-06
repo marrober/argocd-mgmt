@@ -32,6 +32,18 @@ echo ""
 
 ## Tidy up projects
 
+oc delete application.argoproj.io/pacman-01-dev-01 -n pacman-01-argocd
+oc delete application.argoproj.io/pacman-01-dev-02 -n pacman-01-argocd
+oc delete application.argoproj.io/pacman-01-dev-03 -n pacman-01-argocd
+oc delete application.argoproj.io/pacman-02-dev-01 -n pacman-01-argocd
+oc delete application.argoproj.io/pacman-02-dev-02 -n pacman-02-argocd
+oc delete application.argoproj.io/pacman-03-dev-01 -n pacman-03-argocd
+oc delete application.argoproj.io/pacman-03-dev-02 -n pacman-03-argocd
+oc delete application.argoproj.io/pacman-01-root -n pacman-01-argocd
+oc delete application.argoproj.io/pacman-02-root -n pacman-02-argocd
+oc delete application.argoproj.io/pacman-03-root -n pacman-03-argocd
+oc delete application.argoproj.io/app-in-namespace-root -n openshift-gitops
+
 oc delete project pacman-01-argocd
 oc delete project pacman-02-argocd
 oc delete project pacman-03-argocd
@@ -42,3 +54,5 @@ oc delete project pacman-02-dev-01
 oc delete project pacman-02-dev-02
 oc delete project pacman-03-dev-01
 oc delete project pacman-03-dev-02
+
+oc delete appproject/app-in-namespace-root -n openshift-gitops
