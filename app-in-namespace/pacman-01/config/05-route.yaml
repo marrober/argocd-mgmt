@@ -2,7 +2,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: pacman-01-argocd-server
-  namespace: pacman-02-argocd
+  namespace: pacman-01-argocd
   labels:
     app.kubernetes.io/managed-by: pacman-01-argocd
     app.kubernetes.io/name: pacman-01-argocd-server
