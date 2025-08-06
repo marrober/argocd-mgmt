@@ -9,9 +9,9 @@ spec:
     namespace: pacman-02-argocd
     server: https://kubernetes.default.svc
   source:
-    path: app-in-namespace/pacman-02/deployments
+    path: pacman-02/deployments
     targetRevision: main
-    repoURL: https://github.com/marrober/helm-deployments.git
+    repoURL: https://github.com/marrober/argocd-app-deployment.git
   syncPolicy:
     automated: 
       prune: true 

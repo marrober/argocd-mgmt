@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
-  name: pacman-02-argocd
+  name: pacman-02
   namespace: pacman-02-argocd
 spec:
   server:
-    host: pacman-02-argocd-server-pacman-02-argocd.apps.cluster-mspjm.mspjm.sandbox3009.opentlc.com
+    host: pacman-02-server-pacman-02-argocd.apps.cluster-mspjm.mspjm.sandbox3009.opentlc.com
     autoscale:
       enabled: false
     grpc:
