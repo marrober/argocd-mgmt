@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: pacman-01-argocd
+  labels:
+    app.kubernetes.io/instance: pacman-01
 ---
 apiVersion: v1
 kind: Namespace
