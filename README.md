@@ -43,6 +43,10 @@ oc delete application.argoproj.io/pacman-01-root -n pacman-01-argocd
 oc delete application.argoproj.io/pacman-02-root -n pacman-02-argocd
 oc delete application.argoproj.io/pacman-03-root -n pacman-03-argocd
 oc delete application.argoproj.io/app-in-namespace-root -n openshift-gitops
+oc delete application.argoproj.io/pacman-01 -n openshift-gitops
+oc delete application.argoproj.io/pacman-02 -n openshift-gitops
+oc delete application.argoproj.io/pacman-03 -n openshift-gitops
+oc delete application.argoproj.io/index-management -n openshift-gitops
 
 oc delete project pacman-01-argocd
 oc delete project pacman-02-argocd
