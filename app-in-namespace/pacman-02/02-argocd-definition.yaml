@@ -1,11 +1,10 @@
-apiVersion: argoproj.io/v1beta1
+apiVersion: argoproj.iapiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
   name: pacman-02
-  namespace: pacman-02-argocd
+  namespace: pacman-02-argocd 
 spec:
   server:
-    host: pacman-02-server-pacman-02-argocd.apps.cluster-mspjm.mspjm.sandbox3009.opentlc.com
     autoscale:
       enabled: false
     grpc:
@@ -15,10 +14,10 @@ spec:
       enabled: false
     resources:
       limits:
-        cpu: '2'
+        cpu: '1'
         memory: 512Mi
       requests:
-        cpu: '1'
+        cpu: '500m'
         memory: 256Mi
     route:
       enabled: true
@@ -69,7 +68,7 @@ spec:
   repo:
     resources:
       limits:
-        cpu: '1'
+        cpu: '500m'
         memory: 512Mi
       requests:
         cpu: 250m
@@ -91,8 +90,6 @@ spec:
       requests:
         cpu: 250m
         memory: 128Mi
-  tls:
-    ca: {}
   redis:
     resources:
       limits:
@@ -102,12 +99,117 @@ spec:
         cpu: 250m
         memory: 128Mi
   controller:
-    processors: {}
     resources:
       limits:
-        cpu: '2'
+        cpu: '1'
         memory: 1024Mi
       requests:
+        cpu: '500m'
+        memory: 512Mio/v1beta1
+kind: ArgoCD
+metadata:
+  name: pacman-02
+  namespace: pacman-02-argocd 
+spec:
+  server:
+    autoscale:
+      enabled: false
+    grpc:
+      ingress:
+        enabled: false
+    ingress:
+      enabled: false
+    resources:
+      limits:
         cpu: '1'
         memory: 512Mi
-    sharding: {}
+      requests:
+        cpu: '500m'
+        memory: 256Mi
+    route:
+      enabled: true
+    service:
+      type: ''
+  grafana:
+    enabled: false
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+  monitoring:
+    enabled: false
+  notifications:
+    enabled: false
+  prometheus:
+    enabled: false
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+  initialSSHKnownHosts: {}
+  sso:
+    dex:
+      openShiftOAuth: true
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
+    provider: dex
+  applicationSet:
+    webhookServer:
+      ingress:
+        enabled: false
+      route:
+        enabled: false
+  rbac:
+    defaultPolicy: ''
+    policy: |
+      g, system:cluster-admins, role:admin
+    scopes: '[groups]'
+  extraConfig:
+    application.namespaces: pacman-02-dev-*
+    applicationsetcontroller.namespaces: pacman-02-dev-*
+  repo:
+    resources:
+      limits:
+        cpu: '500m'
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+  resourceExclusions: |
+    - apiGroups:
+      - tekton.dev
+      clusters:
+      - '*'
+      kinds:
+      - TaskRun
+      - PipelineRun
+  ha:
+    enabled: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  redis:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  controller:
+    resources:
+      limits:
+        cpu: '1'
+        memory: 1024Mi
+      requests:
+        cpu: '500m'
+        memory: 512Mi
