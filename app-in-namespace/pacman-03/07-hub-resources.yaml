@@ -1,0 +1,244 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pacman-03-argocd
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: hub-resources
+  namespace: pacman-03-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: hub-resources
+        spec:
+          severity: medium
+          remediationAction: enforce
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: cluster.open-cluster-management.io/v1beta2
+                kind: ManagedClusterSetBinding
+                metadata:
+                  name: dev-clusters
+                  namespace: pacman-03-argocd
+                spec:
+                  clusterSet: dev-clusters
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: apps.open-cluster-management.io/v1beta1
+                kind: GitOpsCluster
+                metadata:
+                  name: argo-acm-clusters-dev-clusters
+                  namespace: pacman-03-argocd
+                spec:
+                  argoServer:
+                    cluster: local-cluster
+                    argoNamespace: pacman-03-argocd
+                  placementRef:
+                    kind: Placement
+                    apiVersion: cluster.open-cluster-management.io/v1beta1
+                    name: dev-clusters
+                    namespace: pacman-03-argocd
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: cluster.open-cluster-management.io/v1beta1
+                kind: Placement
+                metadata:
+                  name: dev-clusters
+                  namespace: pacman-03-argocd
+                spec:
+                  clusterSets:
+                    - dev-clusters
+                  predicates:
+                    - requiredClusterSelector:
+                        labelSelector:
+                          matchLabels:
+                            vendor: OpenShift
+            - complianceType: musthave
+              objectDefinition:
+                kind: ClusterRoleBinding
+                apiVersion: rbac.authorization.k8s.io/v1
+                metadata:
+                  name: gitops-create-managed-clusterset-binding-pacman-03-argocd
+                  namespace: pacman-03-argocd
+                subjects:
+                  - kind: ServiceAccount
+                    name: pacman-03-argocd-argocd-application-controller
+                    namespace: pacman-03-argocd
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: ClusterRole
+                  name: open-cluster-management:managedclusterset:bind:dev-clusters
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: ClusterRoleBinding
+                metadata:
+                  name: argocd-managed-pacman-03-argocd
+                  namespace: pacman-03-argocd
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: ClusterRole
+                  name: admin
+                subjects:
+                - kind: ServiceAccount
+                  name: pacman-03-argocd-argocd-application-controller
+                  namespace: pacman-03-argocd    
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: admin-cluster-role
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                kind: ClusterRole
+                apiVersion: rbac.authorization.k8s.io/v1
+                metadata:
+                  name: pacman-03-argocd-policy-admin
+                rules:
+                  - verbs:
+                      - get
+                      - list
+                      - watch
+                      - create
+                      - update
+                      - patch
+                      - delete
+                    apiGroups:
+                      - policy.open-cluster-management.io
+                    resources:
+                      - policies
+                      - policysets
+                      - placementbindings
+                  - verbs:
+                      - get
+                      - list
+                      - watch
+                      - create
+                      - update
+                      - patch
+                      - delete
+                    apiGroups:
+                      - apps.open-cluster-management.io
+                    resources:
+                      - placementrules
+                  - verbs:
+                      - get
+                      - list
+                      - watch
+                      - create
+                      - update
+                      - patch
+                      - delete
+                    apiGroups:
+                      - cluster.open-cluster-management.io
+                    resources:
+                      - placements
+                      - placements/status
+                      - placementdecisions
+                      - placementdecisions/status
+            - complianceType: musthave
+              objectDefinition:
+                kind: ClusterRoleBinding
+                apiVersion: rbac.authorization.k8s.io/v1
+                metadata:
+                  name: pacman-03-argocd-policy-admin
+                subjects:
+                  - kind: ServiceAccount
+                    name: pacman-03-argocd-argocd-application-controller
+                    namespace: pacman-03-argocd
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: ClusterRole
+                  name: pacman-03-argocd-policy-admin
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: ocm-placement-resources
+        spec:
+          severity: medium
+          remediationAction: enforce
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: Role
+                metadata:
+                  name: ocm-placement-consumer
+                  namespace: pacman-03-argocd
+                rules:
+                # Allow controller to manage placements/placementdecisions
+                - apiGroups: ["cluster.open-cluster-management.io"]
+                  resources: ["placements"]
+                  verbs: ["get", "list"]
+                - apiGroups: ["cluster.open-cluster-management.io"]
+                  resources: ["placementdecisions"]
+                  verbs: ["get", "list"]
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: rbac.authorization.k8s.io/v1
+                kind: RoleBinding
+                metadata:
+                  name: ocm-placement-consumer:pacman-03-argocd
+                  namespace: pacman-03-argocd
+                roleRef:
+                  apiGroup: rbac.authorization.k8s.io
+                  kind: Role
+                  name: ocm-placement-consumer
+                subjects:
+                - kind: ServiceAccount
+                  namespace: pacman-03-argocd
+                  name: argocd-applicationset-controller
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: ConfigMap
+                metadata:
+                  name: ocm-placement-generator
+                  namespace: pacman-03-argocd
+                data:
+                  apiVersion: cluster.open-cluster-management.io/v1beta1
+                  kind: placementdecisions
+                  statusListKey: decisions
+                  matchKey: clusterName                                                  
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: hub-resources-bindings
+  namespace: pacman-03-argocd
+placementRef:
+  name: hub-resources-placement
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: hub-resources
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: hub-resources-placement
+  namespace: pacman-03-argocd
+spec:
+  clusterConditions:
+    - status: "True"
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - {key: local-cluster, operator: In, values: ["true"]}
