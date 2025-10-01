@@ -5,7 +5,6 @@ metadata:
   namespace: pacman-01-argocd 
 spec:
   server:
-    host: pacman-01-server-pacman-01-argocd.apps.cluster-mspjm.mspjm.sandbox3009.opentlc.com
     autoscale:
       enabled: false
     grpc:

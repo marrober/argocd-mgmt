@@ -1,7 +1,7 @@
 # Create the argocd instance using the command : 
 
 ````bash
-oc apply -k pacman-01/config/
+oc apply -k app-in-namespace/root-configuration/
 ````
 
 ## Get the route and secret :
