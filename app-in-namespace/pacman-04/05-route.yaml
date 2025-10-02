@@ -1,0 +1,22 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: pacman-04-server
+  namespace: pacman-04-argocd
+  labels:
+    app.kubernetes.io/managed-by: pacman-04-argocd
+    app.kubernetes.io/name: pacman-04-server
+    app.kubernetes.io/part-of: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+spec:
+  to:
+    kind: Service
+    name: pacman-04-server
+    weight: 100
+  port:
+    targetPort: https
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
