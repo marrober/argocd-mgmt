@@ -30,6 +30,14 @@ oc get secret/pacman-03-cluster -n pacman-03-argocd -o jsonpath='{.data.admin\.p
 echo ""
 ````
 
+
+pacman-04
+
+````bash
+oc get route/pacman-04-server  -n pacman-04-argocd -o jsonpath='{"https://"}{.spec.host}{"\n"}'
+oc get secret/pacman-04-cluster -n pacman-04-argocd -o jsonpath='{.data.admin\.password}'| base64 -d 
+echo ""
+````
 ## Tidy up projects
 
 oc delete application.argoproj.io/pacman-01-dev-01 -n pacman-01-argocd
