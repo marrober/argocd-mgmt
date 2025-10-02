@@ -3,6 +3,8 @@ kind: AppProject
 metadata:
   name: pacman-01
   namespace: pacman-01-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   clusterResourceWhitelist:
   - group: '*'
@@ -21,4 +23,3 @@ spec:
     policies:
     - p, proj:pacman-01:developer, applications, get, pacman-01/*, allow
     - p, proj:pacman-01:developer, applications, sync, pacman-01/*, allow  
-  

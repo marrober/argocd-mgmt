@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: pacman-01-root
   namespace: pacman-01-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   project: pacman-01
   destination:
