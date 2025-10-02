@@ -33,3 +33,45 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: edit
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pacman-04-edit
+  namespace: pacman-04-dev-03
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: pacman-04
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pacman-04-edit
+  namespace: pacman-04-dev-04
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: pacman-04
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pacman-04-edit
+  namespace: pacman-04-dev-05
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: pacman-04
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
