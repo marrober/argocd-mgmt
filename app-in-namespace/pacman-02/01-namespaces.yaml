@@ -11,7 +11,7 @@ metadata:
   name: argocd-admin
   namespace: pacman-02-argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "0"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
