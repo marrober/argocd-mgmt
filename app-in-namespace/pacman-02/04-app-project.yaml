@@ -3,6 +3,8 @@ kind: AppProject
 metadata:
   name: pacman-02
   namespace: pacman-02-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   clusterResourceWhitelist:
   - group: '*'

@@ -2,12 +2,16 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: pacman-02-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: argocd-admin
   namespace: pacman-02-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -22,6 +26,8 @@ kind: Namespace
 metadata:
   labels:
     argocd.argoproj.io/managed-by: pacman-02-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
   name: pacman-02-dev-01
 ---
 apiVersion: v1
@@ -29,4 +35,6 @@ kind: Namespace
 metadata:
   labels:
     argocd.argoproj.io/managed-by: pacman-02-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
   name: pacman-02-dev-02

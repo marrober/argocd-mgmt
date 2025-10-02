@@ -7,6 +7,8 @@ metadata:
     app.kubernetes.io/managed-by: pacman-02-argocd
     app.kubernetes.io/name: pacman-02-server
     app.kubernetes.io/part-of: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   to:
     kind: Service
