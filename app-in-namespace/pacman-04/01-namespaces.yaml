@@ -38,3 +38,30 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "3"
   name: pacman-04-dev-02
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    argocd.argoproj.io/managed-by: pacman-04-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: pacman-04-dev-03
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    argocd.argoproj.io/managed-by: pacman-04-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: pacman-04-dev-04
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    argocd.argoproj.io/managed-by: pacman-04-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: pacman-04-dev-05
