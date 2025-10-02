@@ -4,7 +4,7 @@ metadata:
   name: pacman-03
   namespace: pacman-03-argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   clusterResourceWhitelist:
   - group: '*'
